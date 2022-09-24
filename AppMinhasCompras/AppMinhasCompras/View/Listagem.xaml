@@ -11,7 +11,9 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="txt_search" 
+            <SearchBar x:Name="txt_search"
+                       Margin="-10, 0, 0, 0"
+                       Placeholder="Busca de Produtos"
                        TextChanged="txt_search_TextChanged" />
             
             <RefreshView x:Name="ref_carregando" 
@@ -20,10 +22,11 @@
                 
                 <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected" >
                     <ListView.Header>
-                        <Grid ColumnDefinitions="5*, *, *" RowDefinitions="Auto">
+                        <Grid ColumnDefinitions="3*, *, *, *" RowDefinitions="Auto">
                             <Label Grid.Row="0" Grid.Column="0" Text="Produto" />
                             <Label Grid.Row="0" Grid.Column="1" Text="Qnt" />
                             <Label Grid.Row="0" Grid.Column="2" Text="Preço" />
+                            <Label Grid.Row="0" Grid.Column="3" Text="Total" />
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
@@ -33,10 +36,11 @@
                                     <MenuItem Text="Remover" Clicked="MenuItem_Clicked_Remover" />
                                 </ViewCell.ContextActions>
                                 
-                                <Grid ColumnDefinitions="5*, *, *" RowDefinitions="Auto">
+                                <Grid ColumnDefinitions="3*, *, *, *" RowDefinitions="Auto">
                                     <Label Grid.Row="0" Grid.Column="0" Text="{Binding Nome}" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding Qnt}" />
                                     <Label Grid.Row="0" Grid.Column="2" Text="{Binding Preco, StringFormat='{}{0:c}'}" />
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding PrecoTotal, StringFormat='{}{0:c}'}" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AppMinhasCompras.Helper;
 using System.IO;
+using System.Threading;
+using System.Globalization;
 
 namespace AppMinhasCompras
 {
@@ -31,6 +33,8 @@ namespace AppMinhasCompras
         public App()
         {
             InitializeComponent();
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
 
             MainPage = new NavigationPage(new View.Listagem());
         }

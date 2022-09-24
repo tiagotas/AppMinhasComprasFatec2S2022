@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppMinhasCompras.View.Listagem">
+             x:Class="AppMinhasCompras.View.Listagem"
+             Title="Minhas Compras">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_Somar" />
@@ -10,11 +11,16 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="txt_search" />
-            <RefreshView x:Name="ref_carregando" IsRefreshing="False">
-                <ListView x:Name="lst_produtos">
+            <SearchBar x:Name="txt_search" 
+                       TextChanged="txt_search_TextChanged" />
+            
+            <RefreshView x:Name="ref_carregando" 
+                         IsRefreshing="False" 
+                         Refreshing="lst_produtos_Refreshing">                
+                
+                <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected" >
                     <ListView.Header>
-                        <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto">
+                        <Grid ColumnDefinitions="5*, *, *" RowDefinitions="Auto">
                             <Label Grid.Row="0" Grid.Column="0" Text="Produto" />
                             <Label Grid.Row="0" Grid.Column="1" Text="Qnt" />
                             <Label Grid.Row="0" Grid.Column="2" Text="Preço" />
@@ -23,10 +29,14 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover" Clicked="MenuItem_Clicked_Remover" />
+                                </ViewCell.ContextActions>
+                                
+                                <Grid ColumnDefinitions="5*, *, *" RowDefinitions="Auto">
                                     <Label Grid.Row="0" Grid.Column="0" Text="{Binding Nome}" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding Qnt}" />
-                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Preco}" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding Preco, StringFormat='{}{0:c}'}" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

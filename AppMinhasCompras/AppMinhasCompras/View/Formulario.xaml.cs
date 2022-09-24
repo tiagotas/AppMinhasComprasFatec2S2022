@@ -18,26 +18,39 @@ namespace AppMinhasCompras.View
             InitializeComponent();
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             try
             {
+                Produto produto_selecionado = new Produto();
+
+                if (BindingContext != null)
+                    produto_selecionado = BindingContext as Produto;                    
+
                 Produto p = new Produto
                 {
+                    Id = produto_selecionado.Id,
                     Nome = txt_nome.Text,
                     Preco = Convert.ToDouble(txt_preco.Text),
                     Qnt = Convert.ToDouble(txt_qnt.Text),
                 };
 
-                App.Db.Insert(p);
+                if(p.Id == 0)
+                {
+                    await App.Db.Insert(p);
+                    await DisplayAlert("Deu Certo!", "Produto Inserido", "OK");
+                }                    
+                else
+                {                    
+                    await App.Db.Update(p);
+                    await DisplayAlert("Deu Certo!", "Produto Atualizado", "OK");
+                }               
 
-                DisplayAlert("Deu Certo!", "Produto Inserido", "OK");
-
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
 
             } catch (Exception ex)
             {
-                DisplayAlert("Ops", ex.Message, "OK");
+                await DisplayAlert("Ops", ex.Message, "OK");
             }
         }
     }

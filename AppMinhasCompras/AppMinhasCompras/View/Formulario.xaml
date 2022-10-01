@@ -6,19 +6,27 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="ToolbarItem_Clicked" Text="Salvar" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <Frame>
-            <StackLayout>
-                <Label Text="Produto:" />
-                <Entry x:Name="txt_nome" Text="{Binding Nome }" />
-                
-                <Label Text="Quantidade:" />
-                <Entry x:Name="txt_qnt" Text="{Binding Qnt}" Keyboard="Numeric" />
-                
-                <Label Text="Preço:" />
-                <Entry x:Name="txt_preco" Text="{Binding Preco}" Keyboard="Numeric" />
-            </StackLayout>
-        </Frame>
+        <StackLayout>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Produto:" />
+                    <Entry x:Name="txt_nome" Text="{Binding Nome }" />
+
+                    <Label Text="Quantidade:" />
+                    <Entry x:Name="txt_qnt" Text="{Binding Qnt}"  TextChanged="atualiza_total" Keyboard="Numeric" />
+
+                    <Label Text="Preço:" />
+                    <Entry x:Name="txt_preco" Text="{Binding Preco}" TextChanged="atualiza_total" Keyboard="Numeric" />
+
+                    <Label Text="Total Item:" />
+                    <Entry x:Name="txt_total_item" 
+                           Text="{Binding PrecoTotal, StringFormat='{}{0:c}'}" 
+                           IsReadOnly="True" />
+                     
+                </StackLayout>
+            </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -25,7 +25,7 @@ namespace AppMinhasCompras.View
                 Produto produto_selecionado = new Produto();
 
                 if (BindingContext != null)
-                    produto_selecionado = BindingContext as Produto;                    
+                    produto_selecionado = BindingContext as Produto;
 
                 Produto p = new Produto
                 {
@@ -35,22 +35,51 @@ namespace AppMinhasCompras.View
                     Qnt = Convert.ToDouble(txt_qnt.Text),
                 };
 
-                if(p.Id == 0)
+                if (p.Id == 0)
                 {
                     await App.Db.Insert(p);
                     await DisplayAlert("Deu Certo!", "Produto Inserido", "OK");
-                }                    
+                }
                 else
-                {                    
+                {
                     await App.Db.Update(p);
                     await DisplayAlert("Deu Certo!", "Produto Atualizado", "OK");
-                }               
+                }
 
                 await Navigation.PopAsync();
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 await DisplayAlert("Ops", ex.Message, "OK");
+            }
+        }
+
+        private void atualiza_total(object sender, TextChangedEventArgs e)
+        {
+            /*if(e.NewTextValue == String.Empty)
+            {
+                Entry disparador = sender as Entry;
+                disparador.Text = "0";
+            }*/
+
+            try
+            {
+                if (!string.IsNullOrEmpty(txt_preco.Text) && !string.IsNullOrEmpty(txt_qnt.Text))
+                {
+                    double preco = Convert.ToDouble(txt_preco.Text);
+                    double qnt = Convert.ToDouble(txt_qnt.Text);
+
+                    double novo_item_total = preco * qnt;
+
+                    txt_total_item.Text = novo_item_total.ToString("C");
+
+                } else
+                    txt_total_item.Text = 0.ToString("C");
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("Ops", ex.Message, "OK");
             }
         }
     }
